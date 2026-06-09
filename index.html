@@ -2,307 +2,559 @@
 <html lang="ja">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
-<title>山森惇人くん 頑張れ！</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>山森惇人くん 頑張って</title>
+
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@700;900&family=Noto+Sans+JP:wght@400;700&display=swap');
 
-  * { margin: 0; padding: 0; box-sizing: border-box; }
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
 
-  body {
-    background: #0d0d0d;
-    font-family: 'Noto Sans JP', sans-serif;
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    overflow-x: hidden;
-  }
+body{
 
-  /* ── 上段：タイトル ── */
-  .hero {
-    width: 100%;
-    padding: 2.5rem 1.5rem 1.5rem;
-    text-align: center;
-    position: relative;
-  }
+    height:100vh;
+    overflow:hidden;
 
-  .hero::before {
-    content: '';
-    position: absolute;
-    inset: 0;
+    display:flex;
+    flex-direction:column;
+    justify-content:space-between;
+    align-items:center;
+
     background:
-      radial-gradient(ellipse 80% 60% at 50% 0%, rgba(220,40,0,0.18) 0%, transparent 70%);
-    pointer-events: none;
-  }
+    radial-gradient(circle at center,
+    #2d0000 0%,
+    #100000 50%,
+    #000000 100%);
 
-  .badge {
-    display: inline-block;
-    background: #c82000;
-    color: #fff;
-    font-size: 11px;
-    letter-spacing: 3px;
-    padding: 4px 16px;
-    border-radius: 2px;
-    font-weight: 700;
-    margin-bottom: 1.2rem;
-    text-transform: uppercase;
-  }
+    color:white;
+    font-family:
+    "Hiragino Sans",
+    sans-serif;
 
-  .title {
-    font-family: 'Noto Serif JP', serif;
-    font-weight: 900;
-    font-size: clamp(2rem, 9vw, 3.2rem);
-    color: #ff3a10;
-    line-height: 1.25;
-    text-shadow: 0 0 40px rgba(255,60,0,0.5), 0 2px 4px rgba(0,0,0,0.8);
-    letter-spacing: -0.02em;
-    animation: flicker 4s infinite;
-  }
+}
 
-  @keyframes flicker {
-    0%,100% { text-shadow: 0 0 40px rgba(255,60,0,0.5), 0 2px 4px rgba(0,0,0,0.8); }
-    50%      { text-shadow: 0 0 60px rgba(255,80,0,0.8), 0 2px 4px rgba(0,0,0,0.8); }
-  }
+/* 背景パーティクル */
 
-  /* ── 中段：イラスト ── */
-  .illust-wrap {
-    position: relative;
-    margin: 1rem auto;
-    width: min(72vw, 280px);
-    cursor: pointer;
-    -webkit-tap-highlight-color: transparent;
-  }
+body::before{
 
-  .illust-wrap::before {
-    content: '';
-    position: absolute;
-    inset: -8px;
-    border-radius: 50%;
-    background: radial-gradient(circle, rgba(255,100,0,0.25) 0%, transparent 70%);
-    pointer-events: none;
-    animation: pulse 2.4s ease-in-out infinite;
-  }
+    content:"";
 
-  @keyframes pulse {
-    0%,100% { transform: scale(1);   opacity: 0.7; }
-    50%      { transform: scale(1.08); opacity: 1; }
-  }
+    position:fixed;
+    inset:0;
 
-  .illust-wrap img {
-    width: 100%;
-    border-radius: 50%;
-    display: block;
-    filter: drop-shadow(0 0 16px rgba(255,80,0,0.4));
-    transition: transform 0.12s ease, filter 0.12s ease;
-  }
+    background-image:
+    radial-gradient(
+    rgba(255,255,255,.8) 1px,
+    transparent 1px);
 
-  .illust-wrap.boing img {
-    animation: boing 0.35s ease;
-  }
+    background-size:40px 40px;
 
-  @keyframes boing {
-    0%   { transform: scale(1); }
-    30%  { transform: scale(1.15) rotate(-3deg); }
-    60%  { transform: scale(0.93) rotate(2deg); }
-    85%  { transform: scale(1.05) rotate(-1deg); }
-    100% { transform: scale(1) rotate(0); }
-  }
+    opacity:.15;
 
-  .tap-hint {
-    text-align: center;
-    color: rgba(255,255,255,0.35);
-    font-size: 11px;
-    letter-spacing: 1px;
-    margin-top: 0.5rem;
-  }
+    animation:
+    particleMove 15s linear infinite;
 
-  /* ── 下段：時計 ── */
-  .clock-wrap {
-    margin: 1.5rem auto 2.5rem;
-    text-align: center;
-    position: relative;
-  }
+    pointer-events:none;
+}
 
-  .clock-label {
-    font-size: 10px;
-    letter-spacing: 4px;
-    color: rgba(255,255,255,0.3);
-    text-transform: uppercase;
-    margin-bottom: 0.5rem;
-  }
+@keyframes particleMove{
 
-  .clock {
-    font-family: 'Courier New', monospace;
-    font-size: clamp(2.4rem, 11vw, 4rem);
-    font-weight: 700;
-    color: #ff6a00;
-    letter-spacing: 0.08em;
-    text-shadow: 0 0 24px rgba(255,100,0,0.6), 0 0 6px rgba(255,60,0,0.8);
-    border: 2px solid rgba(255,100,0,0.3);
-    border-radius: 6px;
-    padding: 0.4rem 1.2rem;
-    background: rgba(255,60,0,0.05);
-    min-width: min(80vw, 320px);
-    display: inline-block;
-    position: relative;
-  }
+    from{
+        transform:translateY(0);
+    }
 
-  .clock::before, .clock::after {
-    content: '';
-    position: absolute;
-    top: -1px; bottom: -1px;
-    width: 6px;
-    background: rgba(255,100,0,0.5);
-  }
-  .clock::before { left: -1px; border-radius: 6px 0 0 6px; }
-  .clock::after  { right: -1px; border-radius: 0 6px 6px 0; }
+    to{
+        transform:translateY(-40px);
+    }
+}
 
-  .clock-date {
-    font-size: 11px;
-    letter-spacing: 3px;
-    color: rgba(255,160,80,0.5);
-    margin-top: 0.4rem;
-  }
+/* オープニング */
 
-  /* ── decorations ── */
-  .sparks {
-    position: fixed;
-    top: 0; left: 0;
-    width: 100%; height: 100%;
-    pointer-events: none;
-    overflow: hidden;
-    z-index: 999;
-  }
+#mission{
 
-  .spark {
-    position: absolute;
-    border-radius: 50%;
-    animation: sparkle 0.6s ease-out forwards;
-  }
+    position:fixed;
 
-  @keyframes sparkle {
-    0%   { transform: translate(0,0) scale(1); opacity: 1; }
-    100% { transform: translate(var(--dx), var(--dy)) scale(0); opacity: 0; }
-  }
+    inset:0;
+
+    display:flex;
+    flex-direction:column;
+
+    justify-content:center;
+    align-items:center;
+
+    background:black;
+
+    z-index:999;
+
+    font-size:1.6rem;
+
+    text-align:center;
+
+    line-height:2;
+
+    animation:
+    fadeout 1s ease 3s forwards;
+}
+
+@keyframes fadeout{
+
+    to{
+        opacity:0;
+        visibility:hidden;
+    }
+}
+
+/* タイトル */
+
+.title{
+
+    margin-top:20px;
+
+    text-align:center;
+
+    color:#ff4040;
+
+    font-size:2rem;
+
+    font-weight:bold;
+
+    text-shadow:
+    0 0 10px red,
+    0 0 20px orange,
+    0 0 30px yellow;
+
+    animation:
+    fire 1s infinite alternate;
+}
+
+@keyframes fire{
+
+    from{
+        transform:translateY(0);
+    }
+
+    to{
+        transform:translateY(-4px);
+    }
+}
+
+/* ALL OR NOTHING */
+
+.slogan{
+
+    margin-top:8px;
+
+    font-size:1.2rem;
+
+    font-weight:bold;
+
+    color:white;
+
+    animation:
+    blink 1s infinite;
+}
+
+@keyframes blink{
+
+    0%{
+        opacity:1;
+    }
+
+    50%{
+        opacity:.2;
+    }
+
+    100%{
+        opacity:1;
+    }
+}
+
+/* キャラ */
+
+.character-wrap{
+
+    position:relative;
+    text-align:center;
+}
+
+.character{
+
+    width:min(70vw,320px);
+
+    border-radius:50%;
+
+    cursor:pointer;
+
+    filter:
+    drop-shadow(0 0 20px gold);
+
+    transition:.2s;
+}
+
+.character:active{
+
+    transform:scale(.95);
+}
+
+.tap{
+
+    margin-top:10px;
+
+    opacity:.8;
+}
+
+/* 吹き出し */
+
+.balloon{
+
+    position:absolute;
+
+    left:50%;
+    transform:translateX(-50%);
+
+    top:-20px;
+
+    max-width:280px;
+
+    background:white;
+
+    color:black;
+
+    padding:12px;
+
+    border-radius:15px;
+
+    opacity:0;
+
+    transition:.3s;
+
+    font-weight:bold;
+}
+
+/* 時計 */
+
+.clock-area{
+
+    text-align:center;
+
+    margin-bottom:25px;
+}
+
+.clock-title{
+
+    margin-bottom:8px;
+
+    color:#ffd700;
+
+    letter-spacing:4px;
+}
+
+.clock{
+
+    font-size:3rem;
+
+    font-family:
+    monospace;
+
+    color:#00ffff;
+
+    padding:15px 25px;
+
+    border:2px solid cyan;
+
+    border-radius:15px;
+
+    background:
+    rgba(0,0,0,.4);
+
+    box-shadow:
+    0 0 20px cyan,
+    inset 0 0 20px cyan;
+
+    text-shadow:
+    0 0 10px cyan,
+    0 0 30px cyan,
+    0 0 50px cyan;
+}
+
+/* カウントダウン */
+
+.countdown{
+
+    margin-top:15px;
+
+    color:#ffcc00;
+
+    font-size:1rem;
+}
+
+/* シェイク */
+
+.shake{
+
+    animation:
+    shake .4s;
+}
+
+@keyframes shake{
+
+    0%{transform:translateX(0);}
+    20%{transform:translateX(-8px);}
+    40%{transform:translateX(8px);}
+    60%{transform:translateX(-8px);}
+    80%{transform:translateX(8px);}
+    100%{transform:translateX(0);}
+}
+
 </style>
 </head>
+
 <body>
 
-<!-- 上段 -->
-<section class="hero">
-  <div class="badge">令和の虎 YOUTH</div>
-  <h1 class="title">山森惇人くん<br>頑張って</h1>
-</section>
+<div id="mission">
 
-<!-- 中段 -->
-<div class="illust-wrap" id="illust" role="button" aria-label="タップしてボイスを聞く">
-  <img id="illust-img" src="イラスト.png" alt="山森惇人くんのイラスト">
-</div>
-<p class="tap-hint">👆 タップしてみて</p>
+━━━━━━━━━━<br><br>
 
-<!-- 下段 -->
-<div class="clock-wrap">
-  <div class="clock-label">現在時刻（3分早め）</div>
-  <div class="clock" id="clock">--:--:--</div>
-  <div class="clock-date" id="clock-date"></div>
+MISSION<br><br>
+
+山森惇人を<br>
+令和の虎へ送り出せ<br><br>
+
+━━━━━━━━━━
+
 </div>
 
-<div class="sparks" id="sparks"></div>
+<div>
+
+<div class="title">
+
+🔥 山森惇人くん 頑張って 🔥
+
+</div>
+
+<div class="slogan">
+
+ALL OR NOTHING
+
+</div>
+
+</div>
+
+<div class="character-wrap">
+
+<div class="balloon" id="balloon"></div>
+
+<img
+src="character.png"
+class="character"
+id="character">
+
+<div class="tap">
+
+タップして応援メッセージ
+
+</div>
+
+</div>
+
+<div class="clock-area">
+
+<div class="clock-title">
+
+MISSION CLOCK
+
+</div>
+
+<div id="clock" class="clock">
+
+00:00:00
+
+</div>
+
+<div class="countdown">
+
+本番まで
+<span id="countdown"></span>
+
+</div>
+
+</div>
 
 <script>
-// ── 時計（リアルタイム+3分） ──
-function updateClock() {
-  var d = new Date(Date.now() + 3 * 60 * 1000);
-  var h = String(d.getHours()).padStart(2,'0');
-  var m = String(d.getMinutes()).padStart(2,'0');
-  var s = String(d.getSeconds()).padStart(2,'0');
-  document.getElementById('clock').textContent = h + ':' + m + ':' + s;
-  var days = ['日','月','火','水','木','金','土'];
-  var mo = d.getMonth()+1;
-  var da = d.getDate();
-  var wd = days[d.getDay()];
-  document.getElementById('clock-date').textContent = mo+'月'+da+'日（'+wd+'）';
-}
-updateClock();
-setInterval(updateClock, 1000);
 
-// ── ランダムボイス（Web Speech API） ──
-var voices = [
-  'ほかほかの豚汁が待っとるぞ',
-  '天ぷらのぷらってなにが由来なんだろう',
-  '人には人の乳酸菌',
-  'いつでも帰っておいで'
+/* ===== 3分先時計 ===== */
+
+function updateClock(){
+
+    const now = new Date();
+
+    now.setMinutes(
+    now.getMinutes()+3);
+
+    const h =
+    String(now.getHours())
+    .padStart(2,"0");
+
+    const m =
+    String(now.getMinutes())
+    .padStart(2,"0");
+
+    const s =
+    String(now.getSeconds())
+    .padStart(2,"0");
+
+    document
+    .getElementById("clock")
+    .textContent=
+    `${h}:${m}:${s}`;
+}
+
+updateClock();
+
+setInterval(
+updateClock,
+1000);
+
+/* ===== カウントダウン ===== */
+
+/*
+本番日時をここで変更
+*/
+
+const target =
+new Date(
+"2026-06-20T13:00:00"
+);
+
+function updateCountdown(){
+
+    const now =
+    new Date();
+
+    const diff =
+    target-now;
+
+    if(diff<=0){
+
+        document
+        .getElementById(
+        "countdown")
+        .textContent=
+        "開戦";
+
+        return;
+    }
+
+    const d =
+    Math.floor(
+    diff/86400000);
+
+    const h =
+    Math.floor(
+    diff/3600000)%24;
+
+    const m =
+    Math.floor(
+    diff/60000)%60;
+
+    const s =
+    Math.floor(
+    diff/1000)%60;
+
+    document
+    .getElementById(
+    "countdown")
+    .textContent=
+    `${d}日 ${h}時間 ${m}分 ${s}秒`;
+}
+
+updateCountdown();
+
+setInterval(
+updateCountdown,
+1000);
+
+/* ===== ボイス ===== */
+
+const messages=[
+
+"ほかほかの豚汁が待っとるぞ",
+
+"天ぷらのぷらってなにが由来なんだろう",
+
+"人には人の乳酸菌",
+
+"いつでも帰っておいで",
+
+"山森惇人、いってこい"
+
 ];
 
-var utterance = null;
+const balloon =
+document.getElementById(
+"balloon");
 
-function speak() {
-  if ('speechSynthesis' in window) {
-    window.speechSynthesis.cancel();
-    var text = voices[Math.floor(Math.random() * voices.length)];
-    utterance = new SpeechSynthesisUtterance(text);
-    utterance.lang = 'ja-JP';
-    utterance.pitch = 0.85;
-    utterance.rate = 0.92;
-    utterance.volume = 1.0;
-    // 機械っぽく日本語音声を選ぶ
-    var available = window.speechSynthesis.getVoices();
-    var jaVoice = available.find(function(v){return v.lang.startsWith('ja');});
-    if (jaVoice) utterance.voice = jaVoice;
-    window.speechSynthesis.speak(utterance);
-  }
-}
+const synth =
+window.speechSynthesis;
 
-// ── イラストタップ ──
-var illust = document.getElementById('illust');
-var img    = document.getElementById('illust-img');
+document
+.getElementById(
+"character")
+.addEventListener(
+"click",
+()=>{
 
-illust.addEventListener('click', function(e) {
-  // boing
-  img.getAnimations().forEach(function(a){a.cancel();});
-  illust.classList.remove('boing');
-  void illust.offsetWidth;
-  illust.classList.add('boing');
-  illust.addEventListener('animationend', function(){
-    illust.classList.remove('boing');
-  }, {once:true});
+document.body.classList
+.add("shake");
 
-  // sparks
-  spawnSparks(e.clientX, e.clientY);
+setTimeout(()=>{
 
-  // voice
-  speak();
+document.body.classList
+.remove("shake");
+
+},400);
+
+const msg =
+messages[
+Math.floor(
+Math.random()*
+messages.length
+)];
+
+balloon.textContent=
+msg;
+
+balloon.style.opacity=1;
+
+setTimeout(()=>{
+
+balloon.style.opacity=0;
+
+},2500);
+
+synth.cancel();
+
+const speech =
+new SpeechSynthesisUtterance(
+msg);
+
+speech.lang=
+"ja-JP";
+
+speech.pitch=0.8;
+
+speech.rate=0.9;
+
+synth.speak(
+speech);
+
 });
 
-// ── スパーク演出 ──
-function spawnSparks(cx, cy) {
-  var container = document.getElementById('sparks');
-  var colors = ['#ff6a00','#ffb400','#ff3a10','#fff5e0','#ffdd44'];
-  for (var i = 0; i < 16; i++) {
-    var s = document.createElement('div');
-    s.className = 'spark';
-    var size = 6 + Math.random() * 8;
-    var angle = Math.random() * Math.PI * 2;
-    var dist  = 40 + Math.random() * 60;
-    s.style.cssText = [
-      'width:'+size+'px',
-      'height:'+size+'px',
-      'left:'+(cx - size/2)+'px',
-      'top:'+(cy - size/2)+'px',
-      'background:'+colors[Math.floor(Math.random()*colors.length)],
-      '--dx:'+(Math.cos(angle)*dist)+'px',
-      '--dy:'+(Math.sin(angle)*dist)+'px'
-    ].join(';');
-    container.appendChild(s);
-    setTimeout(function(el){ el.remove(); }, 700, s);
-  }
-}
-
-// voicesリスト初期化待ち
-if ('speechSynthesis' in window) {
-  window.speechSynthesis.onvoiceschanged = function(){};
-}
 </script>
+
 </body>
 </html>
