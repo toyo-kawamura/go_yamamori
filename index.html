@@ -15,7 +15,6 @@
 }
 
 body{
-
     height:100vh;
     overflow:hidden;
 
@@ -34,15 +33,12 @@ body{
     font-family:
     "Hiragino Sans",
     sans-serif;
-
 }
 
-/* 背景パーティクル */
+/* 背景 */
 
 body::before{
-
     content:"";
-
     position:fixed;
     inset:0;
 
@@ -53,7 +49,7 @@ body::before{
 
     background-size:40px 40px;
 
-    opacity:.15;
+    opacity:.12;
 
     animation:
     particleMove 15s linear infinite;
@@ -62,27 +58,18 @@ body::before{
 }
 
 @keyframes particleMove{
-
-    from{
-        transform:translateY(0);
-    }
-
-    to{
-        transform:translateY(-40px);
-    }
+    from{transform:translateY(0);}
+    to{transform:translateY(-40px);}
 }
 
 /* オープニング */
 
 #mission{
-
     position:fixed;
-
     inset:0;
 
     display:flex;
     flex-direction:column;
-
     justify-content:center;
     align-items:center;
 
@@ -90,10 +77,8 @@ body::before{
 
     z-index:999;
 
-    font-size:1.6rem;
-
+    font-size:1.2rem;
     text-align:center;
-
     line-height:2;
 
     animation:
@@ -101,7 +86,6 @@ body::before{
 }
 
 @keyframes fadeout{
-
     to{
         opacity:0;
         visibility:hidden;
@@ -112,13 +96,13 @@ body::before{
 
 .title{
 
-    margin-top:20px;
+    margin-top:15px;
 
     text-align:center;
 
     color:#ff4040;
 
-    font-size:2rem;
+    font-size:1.5rem;
 
     font-weight:bold;
 
@@ -138,7 +122,7 @@ body::before{
     }
 
     to{
-        transform:translateY(-4px);
+        transform:translateY(-3px);
     }
 }
 
@@ -148,28 +132,49 @@ body::before{
 
     margin-top:8px;
 
-    font-size:1.2rem;
+    text-align:center;
+
+    font-size:1rem;
 
     font-weight:bold;
 
-    color:white;
-
-    animation:
-    blink 1s infinite;
+    letter-spacing:3px;
 }
 
-@keyframes blink{
+.all{
+    animation:allBlink 2s infinite;
+}
 
-    0%{
+.nothing{
+    animation:nothingBlink 2s infinite;
+}
+
+.or{
+    margin:0 8px;
+    opacity:.5;
+}
+
+@keyframes allBlink{
+
+    0%,40%{
         opacity:1;
+        color:#ff4040;
     }
 
-    50%{
-        opacity:.2;
+    50%,100%{
+        opacity:.15;
+    }
+}
+
+@keyframes nothingBlink{
+
+    0%,40%{
+        opacity:.15;
     }
 
-    100%{
+    50%,100%{
         opacity:1;
+        color:#00ffff;
     }
 }
 
@@ -178,12 +183,13 @@ body::before{
 .character-wrap{
 
     position:relative;
+
     text-align:center;
 }
 
 .character{
 
-    width:min(70vw,320px);
+    width:min(60vw,260px);
 
     border-radius:50%;
 
@@ -202,7 +208,9 @@ body::before{
 
 .tap{
 
-    margin-top:10px;
+    margin-top:8px;
+
+    font-size:.8rem;
 
     opacity:.8;
 }
@@ -216,9 +224,11 @@ body::before{
     left:50%;
     transform:translateX(-50%);
 
-    top:-20px;
+    top:50%;
 
-    max-width:280px;
+    z-index:100;
+
+    max-width:250px;
 
     background:white;
 
@@ -233,6 +243,9 @@ body::before{
     transition:.3s;
 
     font-weight:bold;
+
+    box-shadow:
+    0 0 10px rgba(0,0,0,.4);
 }
 
 /* 時計 */
@@ -241,7 +254,7 @@ body::before{
 
     text-align:center;
 
-    margin-bottom:25px;
+    margin-bottom:20px;
 }
 
 .clock-title{
@@ -250,19 +263,20 @@ body::before{
 
     color:#ffd700;
 
-    letter-spacing:4px;
+    font-size:.8rem;
+
+    letter-spacing:3px;
 }
 
 .clock{
 
-    font-size:3rem;
+    font-size:2rem;
 
-    font-family:
-    monospace;
+    font-family:monospace;
 
     color:#00ffff;
 
-    padding:15px 25px;
+    padding:10px 18px;
 
     border:2px solid cyan;
 
@@ -277,19 +291,18 @@ body::before{
 
     text-shadow:
     0 0 10px cyan,
-    0 0 30px cyan,
-    0 0 50px cyan;
+    0 0 30px cyan;
 }
 
 /* カウントダウン */
 
 .countdown{
 
-    margin-top:15px;
+    margin-top:10px;
 
     color:#ffcc00;
 
-    font-size:1rem;
+    font-size:.8rem;
 }
 
 /* シェイク */
@@ -338,7 +351,11 @@ MISSION<br><br>
 
 <div class="slogan">
 
-ALL OR NOTHING
+<span class="all">ALL</span>
+
+<span class="or">OR</span>
+
+<span class="nothing">NOTHING</span>
 
 </div>
 
@@ -386,99 +403,70 @@ MISSION CLOCK
 
 <script>
 
-/* ===== 3分先時計 ===== */
+/* 3分先時計 */
 
 function updateClock(){
 
     const now = new Date();
 
-    now.setMinutes(
-    now.getMinutes()+3);
+    now.setMinutes(now.getMinutes()+3);
 
     const h =
-    String(now.getHours())
-    .padStart(2,"0");
+    String(now.getHours()).padStart(2,"0");
 
     const m =
-    String(now.getMinutes())
-    .padStart(2,"0");
+    String(now.getMinutes()).padStart(2,"0");
 
     const s =
-    String(now.getSeconds())
-    .padStart(2,"0");
+    String(now.getSeconds()).padStart(2,"0");
 
-    document
-    .getElementById("clock")
-    .textContent=
+    document.getElementById("clock").textContent =
     `${h}:${m}:${s}`;
 }
 
 updateClock();
+setInterval(updateClock,1000);
 
-setInterval(
-updateClock,
-1000);
-
-/* ===== カウントダウン ===== */
-
-/*
-本番日時をここで変更
-*/
+/* カウントダウン */
 
 const target =
-new Date(
-"2026-06-20T13:00:00"
-);
+new Date("2026-06-20T13:00:00");
 
 function updateCountdown(){
 
-    const now =
-    new Date();
+    const now = new Date();
 
-    const diff =
-    target-now;
+    const diff = target-now;
 
     if(diff<=0){
 
-        document
-        .getElementById(
-        "countdown")
-        .textContent=
-        "開戦";
+        document.getElementById("countdown")
+        .textContent="開戦";
 
         return;
     }
 
     const d =
-    Math.floor(
-    diff/86400000);
+    Math.floor(diff/86400000);
 
     const h =
-    Math.floor(
-    diff/3600000)%24;
+    Math.floor(diff/3600000)%24;
 
     const m =
-    Math.floor(
-    diff/60000)%60;
+    Math.floor(diff/60000)%60;
 
     const s =
-    Math.floor(
-    diff/1000)%60;
+    Math.floor(diff/1000)%60;
 
-    document
-    .getElementById(
-    "countdown")
-    .textContent=
+    document.getElementById("countdown")
+    .textContent =
     `${d}日 ${h}時間 ${m}分 ${s}秒`;
 }
 
 updateCountdown();
+setInterval(updateCountdown,1000);
 
-setInterval(
-updateCountdown,
-1000);
-
-/* ===== ボイス ===== */
+/* ボイス */
 
 const messages=[
 
@@ -495,62 +483,46 @@ const messages=[
 ];
 
 const balloon =
-document.getElementById(
-"balloon");
+document.getElementById("balloon");
 
 const synth =
 window.speechSynthesis;
 
 document
-.getElementById(
-"character")
-.addEventListener(
-"click",
-()=>{
+.getElementById("character")
+.addEventListener("click",()=>{
 
-document.body.classList
-.add("shake");
+document.body.classList.add("shake");
 
 setTimeout(()=>{
-
-document.body.classList
-.remove("shake");
-
+document.body.classList.remove("shake");
 },400);
 
 const msg =
 messages[
 Math.floor(
-Math.random()*
-messages.length
-)];
+Math.random()*messages.length
+)
+];
 
-balloon.textContent=
-msg;
+balloon.textContent = msg;
 
-balloon.style.opacity=1;
+balloon.style.opacity = 1;
 
 setTimeout(()=>{
-
-balloon.style.opacity=0;
-
-},2500);
+balloon.style.opacity = 0;
+},3500);
 
 synth.cancel();
 
 const speech =
-new SpeechSynthesisUtterance(
-msg);
+new SpeechSynthesisUtterance(msg);
 
-speech.lang=
-"ja-JP";
+speech.lang = "ja-JP";
+speech.pitch = 0.8;
+speech.rate = 0.9;
 
-speech.pitch=0.8;
-
-speech.rate=0.9;
-
-synth.speak(
-speech);
+synth.speak(speech);
 
 });
 
